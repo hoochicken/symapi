@@ -2,8 +2,8 @@ doctrine:
     dbal:
         # url: '%env(resolve:DATABASE_URL)%'
         # for fixtures via console BAD hack
-        # url: '%env(resolve:DATABASE_URL_DOCTRINE)%'
-        url: 'postgresql://symfony:changeme@postgres_container:5432/alpha5?serverVersion=13&charset=utf8'
+        url: '%env(resolve:DATABASE_URL_DOCTRINE)%'
+        # url: 'postgresql://symfony:changeme@postgres_container:5432/alpha5?serverVersion=13&charset=utf8'
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
