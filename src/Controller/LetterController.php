@@ -2,12 +2,7 @@
 
 namespace App\Controller;
 
-use App\Repository\DevtoolRepository;
 use App\Repository\LetterRepository;
-use App\Repository\PasswordRepository;
-use App\Repository\WordRepository;
-use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class LetterController extends ApiController
