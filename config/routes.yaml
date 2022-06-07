@@ -5,10 +5,6 @@ index:
   path: /
   controller: App\Controller\DevtoolController::passwordAction
 
-demo:
-  path: /demo
-  controller: App\Controller\DevtoolController::passwordAction
-
 passwords:
   path: /passwords
   controller: App\Controller\DevtoolController::passwordsAction

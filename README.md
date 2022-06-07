@@ -3,6 +3,7 @@
 ## Setup
 
 1. Docker starten
+
 ~~~
 docker-compose up
 ~~~
@@ -17,7 +18,15 @@ Create the following:
 | host     | postgres_container |
 | port     | 5432               |
 | username | alpha5             |
-| username | alpha5             |
+
+3. Create additional Database User for Symfony
+
+| #        | value    |
+|----------|----------|
+| user     | symfony  |
+| password | changeme |
+
+4. 
 
 # doctrine
 
