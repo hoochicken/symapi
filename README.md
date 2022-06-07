@@ -2,13 +2,13 @@
 
 ## Setup
 
-1. Docker starten
+### 1. Docker starten
 
 ~~~
 docker-compose up
 ~~~
 
-2. Create Database
+### 2. Create Database
 
 E. g. via [postgres-admin](http://pgaalpha5.localhost)<br />
 Create the following:
@@ -27,20 +27,20 @@ docker exec -it [dockerContainerId] bash
 bin/console doctrine:database:create
 ~~~
 
-3. Create additional Database User for Symfony
+### 3. Create additional Database User for Symfony
 
 | #        | value    |
 |----------|----------|
 | user     | symfony  |
 | password | changeme |
 
-4. Create Tables via migrations
+### 4. Create Tables via migrations
 
 ~~~
 bin/console doctrine:migrations:migrate
 ~~~
 
-5. Load Fixtures
+### 5. Load Fixtures
 
 ~~~
 # load fixtures
