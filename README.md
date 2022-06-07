@@ -19,6 +19,14 @@ Create the following:
 | port     | 5432               |
 | username | alpha5             |
 
+Alternatively login into docker container and create db via cmd.
+
+~~~
+docker exec -it [dockerContainerId] bash
+# will create db according to settings in config/packages/doctrine.yaml
+bin/console doctrine:database:create
+~~~
+
 3. Create additional Database User for Symfony
 
 | #        | value    |
@@ -26,7 +34,19 @@ Create the following:
 | user     | symfony  |
 | password | changeme |
 
-4. 
+4. Create Tables via migrations
+
+~~~
+bin/console doctrine:migrations:migrate
+~~~
+
+5. Load Fixtures
+
+~~~
+# load fixtures
+bin/console doctrine:fixtures:load
+~~~
+
 
 # doctrine
 

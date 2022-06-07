@@ -3,7 +3,6 @@ doctrine:
         # url: '%env(resolve:DATABASE_URL)%'
         # for fixtures via console BAD hack
         # url: '%env(resolve:DATABASE_URL_DOCTRINE)%'
-        # url: 'postgresql://symfony:changeme@127.0.0.1:5432/alpha5?serverVersion=13&charset=utf8'
         url: 'postgresql://symfony:changeme@postgres_container:5432/alpha5?serverVersion=13&charset=utf8'
 
         # IMPORTANT: You MUST configure your server version,
