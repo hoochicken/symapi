@@ -1,0 +1,39 @@
+# cd api
+# php bin/console debug:router
+
+index:
+  path: /
+  controller: App\Controller\DevtoolController::passwordAction
+
+demo:
+  path: /demo
+  controller: App\Controller\DevtoolController::passwordAction
+
+passwords:
+  path: /passwords
+  controller: App\Controller\DevtoolController::passwordsAction
+  #    path: /
+  # controller: App\Controller\DefaultController::index
+  # controller: App\Controller\DevtoolController::indexAction
+  # controller: App\Controller\DevtoolController::passwordAction
+
+test:
+  path: /public/test
+  controller: App\Controller\DevtoolController::indexAction
+
+second:
+  path: /test
+  controller: App\Controller\DevtoolController::indexAction
+
+words:
+  path: /words
+  controller: App\Controller\WordController::wordAction
+
+wordsByLetters:
+  path: /words/{letters}
+  controller: App\Controller\WordController::wordsByLetterAction
+
+letters:
+  path: /letters
+  controller: App\Controller\LetterController::indexAction
+

@@ -1,0 +1,55 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Sample OpenAPI for Web 69",
+    "description": "Just checking out how it works",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https"
+    }
+  ],
+  "paths": {
+    "/word": {
+      "get": {
+        "description": "Returns all words available",
+        "responses": {
+          "200": {
+            "description": "words are delivered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": []
+    },
+    "/words/{letters}": {
+      "get": {
+        "description": "Returns all words available",
+        "responses": {
+          "200": {
+            "description": "words are delivered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+}
