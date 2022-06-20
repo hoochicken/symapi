@@ -181,6 +181,11 @@ class Word
      */
     private $divided;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $length = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -640,6 +645,18 @@ class Word
     public function setDivided(string $divided): self
     {
         $this->divided = $divided;
+
+        return $this;
+    }
+
+    public function getLength(): ?int
+    {
+        return $this->length;
+    }
+
+    public function setLength(int $length): self
+    {
+        $this->length = $length;
 
         return $this;
     }
