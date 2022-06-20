@@ -206,6 +206,7 @@ class Word
         $this->title = $title;
         if ($setLetters) $this->setLetters($title);
         $this->setDivided($title);
+        $this->setLength($this->getLengthByString($title));
         return $this;
     }
 
@@ -659,5 +660,10 @@ class Word
         $this->length = $length;
 
         return $this;
+    }
+
+    public function getLengthByString($title): int
+    {
+        return strlen($title);
     }
 }
