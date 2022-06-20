@@ -52,17 +52,22 @@ class WordRepository extends ServiceEntityRepository
 
     /**
      * @param string $lettersOriginal
+     * @param int $length
      * @return float|int|mixed|string
      */
-    public function findByLetters(string $lettersOriginal)
+    public function findByLetters(string $lettersOriginal, int $length = 0)
     {
         $lettersForbidden = $this->lettersHelper->getLettersInverse($this->lettersHelper->getLettersFromString($lettersOriginal));
 
         $query = $this->createQueryBuilder('w');
         foreach ($lettersForbidden as $letter) {
             $parameter = 'val_' . $letter;
-            $query->andWhere("w.$letter= :$parameter");
+            $query->andWhere("w.$letter = :$parameter");
             $query->setParameter($parameter, '0');
+        }
+        if (0 < $length) {
+            $query->andWhere("w.length <= :length");
+            $query->setParameter('length', $length);
         }
 
         // $query->setMaxResults(10);

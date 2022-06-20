@@ -29,6 +29,10 @@ wordsByLetters:
   path: /words/{letters}
   controller: App\Controller\WordController::wordsByLetterAction
 
+wordsByLettersAndLength:
+  path: /words/{letters}/{length}
+  controller: App\Controller\WordController::wordsByLetterAction
+
 letters:
   path: /letters
   controller: App\Controller\LetterController::indexAction

@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "/word": {
+    "/words": {
       "get": {
         "description": "Returns all words available",
         "responses": {
@@ -50,6 +50,58 @@
             }
           }
         }
-      }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "letters",
+          "schema": {
+            "type": "string"
+          },
+          "required": true,
+          "description": "Letters as string, which words may contain; e. g. abcdot => returns e. g. boot"
+        }
+      ]
+    },
+    "/words/{letters}/{length}": {
+      "get": {
+        "description": "Returns all words available",
+        "responses": {
+          "200": {
+            "description": "words are delivered",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "in": "path",
+          "name": "letters",
+          "schema": {
+            "type": "string"
+          },
+          "required": true,
+          "description": "Letters as string, which words may contain; e. g. abcdot => returns e. g. boot"
+        },
+        {
+          "in": "path",
+          "name": "length",
+          "schema": {
+            "type": "integer"
+          },
+          "required": true,
+          "description": "Length of word: e. g. 3 returns words with 3 letters"
+        }
+      ]
     }
+  }
 }

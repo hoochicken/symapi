@@ -20,9 +20,9 @@ class WordController extends ApiController
         return $this->respond(['words' => $words]);
     }
 
-    public function wordsByLetterAction(Request $request, WordRepository $wordRepository, LetterRepository $letterRepository, $letters = '')
+    public function wordsByLetterAction(Request $request, WordRepository $wordRepository, LetterRepository $letterRepository, $letters = '', $length = 0)
     {
-        $words = $wordRepository->findByLetters($letters);
+        $words = $wordRepository->findByLetters($letters, $length);
         array_walk($words, function(&$item) { $item = $item->getTitle(); });
         return $this->respond(['words' => $words]);
     }
