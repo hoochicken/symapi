@@ -38,10 +38,11 @@ class AppFixtures extends Fixture
     {
         // vielleicht hier letterweise, achtung, wird bei jedem durchlauf wieder alles gelöscht
         $wordHelper = new WordHelper();
-        $words = $wordHelper->getAllWords(3);
+        $words = $wordHelper->getAllWords('10-a');
         foreach ($words as $oneWord) {
             $word = new Word();
-            $word->setTitle($oneWord, true);
+            $word->setTitle(str_replace('-', '', $oneWord), true);
+            $word->setDivided($oneWord, true);
             $manager->persist($word);
         }
         $manager->flush();

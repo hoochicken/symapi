@@ -5,15 +5,14 @@ namespace App\Helper;
 class WordHelper
 {
     private $specialChars = ['ß' => 'ss'];
-    private $filenames = [2, 3, 4, 5, 6, 7, 8, 9, 10];
+    private $filenames = [2, 3, 4, 5, 6, 7, 8, '8-a', '8-b', 9, 10];
 
     public function getAllWords($wordLengthByletters = 0): array
     {
         // $this->filterWordEnding();
         $wordLengthByletters =
             0 === $wordLengthByletters || is_array($wordLengthByletters) ? $this->filenames :
-                (is_int($wordLengthByletters) ? [$wordLengthByletters] : $wordLengthByletters);
-
+                (is_array($wordLengthByletters) ? $wordLengthByletters : [$wordLengthByletters]);
         $wordsInFile = [];
         foreach ($wordLengthByletters as $i) {
             if (!in_array($i, $this->filenames)) continue;

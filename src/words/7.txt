@@ -28,7 +28,7 @@ Devisen
 Drachen
 Dukaten
 Dämonen
-Döschen
+Dös-chen
 Eckchen
 Etappen
 Fahrten
@@ -54,7 +54,7 @@ Gruppen
 Halogen
 Häkchen
 Härchen
-Höschen
+Hös-chen
 Hütchen
 Juwelen
 Kabinen
@@ -95,7 +95,7 @@ Razzien
 Rhomben
 Risiken
 Rädchen
-Röschen
+Rös-chen
 Schemen
 Schäden
 Sechsen
