@@ -1,43 +1,25 @@
 <?php
 
+/** this file for some reason will cause an error due to double  */
+
 namespace App\DataFixtures;
 
-use App\Entity\Letter;
 use App\Entity\Word;
 use App\Helper\WordHelper;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class AppFixtures extends Fixture implements FixtureGroupInterface
+class WordFixtures extends Fixture implements FixtureGroupInterface
 {
     public static function getGroups(): array
     {
-        return ['general', 'word'];
+        return ['general'];
     }
 
     public function load(ObjectManager $manager): void
     {
        $this->setWords($manager);
-       // $this->setLetters($manager);
-    }
-
-    /**
-     * @param $manager
-     * @return void
-     */
-    private function setLetters(ObjectManager $manager)
-    {
-        $letters = array_merge(range('a', 'z'), ['sch', 'ae', 'oe', 'ue']);
-
-        foreach ($letters as $letter) {
-            $Letter = new Letter();
-            $Letter->setTitle($letter);
-            $Letter->setLigature($letter);
-            $Letter->setState(true);
-            $manager->persist($Letter);
-        }
-        $manager->flush();
     }
 
     private function setWords(ObjectManager $manager)

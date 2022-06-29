@@ -58,6 +58,32 @@ class LetterRepository extends ServiceEntityRepository
         }
     }
 
+    /**
+     * @param string $title
+     * @return float|int|mixed|string
+     */
+    public function findByTitle(string $title): mixed
+    {
+        $query = $this->createQueryBuilder('l');
+        $query->andWhere("l.title = :title");
+        $query->setParameter('title', $title);
+
+        $query->orderBy('l.title');
+        return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @param $letter
+     * @return float|int|mixed|string
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function letterExists($letter): mixed
+    {
+        $letter = $this->findAllTitle($letter);
+        return false;
+    }
+
     // /**
     //  * @return Letter[] Returns an array of Letter objects
     //  */
