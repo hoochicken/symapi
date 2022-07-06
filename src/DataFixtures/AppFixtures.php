@@ -46,6 +46,8 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
         $wordHelper = new WordHelper();
         $words = $wordHelper->getAllWords('10-a');
         foreach ($words as $oneWord) {
+            $oneWord = trim($oneWord);
+            if (!empty($oneWord)) continue;
             $word = new Word();
             $word->setTitle(str_replace('-', '', $oneWord), true);
             $word->setDivided($oneWord, true);

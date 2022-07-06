@@ -17,13 +17,13 @@ class WordController extends ApiController
     {
         $words = $wordRepository->findAll();
         array_walk($words, function(&$item) { $item = $item->getTitle(); });
-        return $this->respond(['words' => $words]);
+        return $this->respond(['words' => array_filter($words)]);
     }
 
     public function wordsByLetterAction(Request $request, WordRepository $wordRepository, LetterRepository $letterRepository, $letters = '', $length = 0)
     {
         $words = $wordRepository->findByLetters($letters, $length);
         array_walk($words, function(&$item) { $item = $item->getTitle(); });
-        return $this->respond(['words' => $words]);
+        return $this->respond(['words' => array_filter($words)]);
     }
 }
