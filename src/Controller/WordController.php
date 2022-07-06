@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 class WordController extends ApiController
 {
+    private $limit = 1000;
+
     public function indexAction(Request $request)
     {
         return $this->respond(['password' => 'xxTESTxx']);
@@ -15,15 +17,25 @@ class WordController extends ApiController
 
     public function wordAction(Request $request, WordRepository $wordRepository)
     {
-        $words = $wordRepository->findAll();
+        $words = $this->getRandomElements($wordRepository->findAll());
         array_walk($words, function(&$item) { $item = $item->getTitle(); });
         return $this->respond(['words' => $words]);
     }
 
     public function wordsByLetterAction(Request $request, WordRepository $wordRepository, LetterRepository $letterRepository, $letters = '', $length = 0)
     {
-        $words = $wordRepository->findByLetters($letters, $length);
+        $words = $this->getRandomElements($wordRepository->findByLetters($letters, $length));
         array_walk($words, function(&$item) { $item = $item->getTitle(); });
         return $this->respond(['words' => $words]);
+    }
+
+    private function getRandomElements(array $array, int $num = 1000): array
+    {
+        $keysOfArray = array_rand($array, $num);
+        $array = array_filter($array, function($k) use ($keysOfArray) {
+            return in_array($k, $keysOfArray);
+        }, ARRAY_FILTER_USE_KEY);
+        sort($array);
+        return $array;
     }
 }
