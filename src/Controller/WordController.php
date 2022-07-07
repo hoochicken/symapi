@@ -31,6 +31,7 @@ class WordController extends ApiController
 
     private function getRandomElements(array $array, int $num = 1000): array
     {
+        if (0 === count($array)) return [];
         $keysOfArray = array_rand($array, min($num, count($array)));
         $array = array_filter($array, function($k) use ($keysOfArray) {
             return in_array($k, $keysOfArray);
