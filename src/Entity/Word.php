@@ -12,7 +12,10 @@ use function PHPUnit\Framework\returnValueMap;
 class Word
 {
     /** @var string[] key[char] => value[asci-repr.] */
-    private $specialChars = ['sch' => 'sch', 'ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue'];
+    private array $specialChars = ['sch' => 'sch', 'ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue'];
+
+    /** @var string[] key[char] => value[asci-repr.] */
+    private array $specialCharsForeign = ['é' => 'e', 'è' => 'e', 'á' => 'a', 'à' => 'a', 'ô' => 'o'];
 
     /**
      * @ORM\Id
@@ -223,7 +226,8 @@ class Word
         $word = strtolower($title);
 
         // split word into letters and set letter
-        foreach ($this->splitWordIntoLetters($word) as $letter) {
+        // special chars like é or ô need to be replaced to be set
+        foreach ($this->splitWordIntoLetters($this->replaceSpecialCharsForeign($word)) as $letter) {
             $this->setLetter($letter);
         }
 
@@ -257,6 +261,16 @@ class Word
     public function splitWordIntoLetters($title)
     {
        return str_split($title, 1);
+    }
+
+    /**
+     * @param $string
+     * @return string
+     * returns "Varieté" as "Variete"
+     */
+    private function replaceSpecialCharsForeign($string): string
+    {
+       return str_replace(array_keys($this->specialCharsForeign), $this->specialCharsForeign, $string);
     }
 
     /**
