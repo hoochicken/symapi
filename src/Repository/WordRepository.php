@@ -19,6 +19,7 @@ use Doctrine\Persistence\ManagerRegistry;
 class WordRepository extends ServiceEntityRepository
 {
     private $lettersHelper;
+    private $specialChars = ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'sch' => 'sch'];
 
     public function __construct(ManagerRegistry $registry, LetterRepository $letterRepository)
     {
@@ -61,8 +62,10 @@ class WordRepository extends ServiceEntityRepository
 
         $query = $this->createQueryBuilder('w');
         foreach ($lettersForbidden as $letter) {
-            $parameter = 'val_' . $letter;
-            $query->andWhere("w.$letter = :$parameter");
+            $letterLigature = $this->specialChars[$letter] ?? false;
+            if (empty($letterLigature)) continue;
+            $parameter = 'val_' . $letterLigature;
+            $query->andWhere("w.$letterLigature = :$parameter");
             $query->setParameter($parameter, '0');
         }
         if (0 < $length) {
