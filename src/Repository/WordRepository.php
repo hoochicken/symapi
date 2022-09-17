@@ -58,14 +58,17 @@ class WordRepository extends ServiceEntityRepository
      */
     public function findByLetters(string $lettersOriginal, int $length = 0)
     {
-        $lettersForbidden = $this->lettersHelper->getLettersInverse($this->lettersHelper->getLettersFromString($lettersOriginal));
+        // letters that MUST NOT be in the word
+        $lettersNotInWord = $this->lettersHelper->getLettersInverse($this->lettersHelper->getLettersFromString($lettersOriginal));
 
         $query = $this->createQueryBuilder('w');
-        foreach ($lettersForbidden as $letter) {
-            $letterLigature = $this->specialChars[$letter] ?? false;
-            if (empty($letterLigature)) continue;
-            $parameter = 'val_' . $letterLigature;
-            $query->andWhere("w.$letterLigature = :$parameter");
+        foreach ($lettersNotInWord as $letter) {
+            // replace by ligature if specialchar
+            // $letter = $this->specialChars[$letter] ?? $letter;
+            // if ($this->checkSpecialChars($letter)) continue;
+
+            $parameter = 'val_' . $letter;
+            $query->andWhere("w.$letter = :$parameter");
             $query->setParameter($parameter, '0');
         }
         if (0 < $length) {
@@ -76,6 +79,15 @@ class WordRepository extends ServiceEntityRepository
         // $query->setMaxResults(10);
         $query->orderBy('w.title');
         return $query->getQuery()->getResult();
+    }
+
+    /**
+     * @param string $string
+     * @return bool
+     */
+    private function checkSpecialChars(string $string): bool
+    {
+        return preg_match('/([a-z]{1,3})/i', $string);
     }
 
     // /**

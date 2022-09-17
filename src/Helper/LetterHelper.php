@@ -6,11 +6,13 @@ use App\Repository\LetterRepository;
 
 class LetterHelper
 {
+    private $separator = '-';
     private $lettersAll = [];
 
     public function __construct(LetterRepository $letterRepository)
     {
-        $this->lettersAll = $letterRepository->findAllTitle();
+        // $this->lettersAll = $letterRepository->findAllTitle();
+        $this->lettersAll = $letterRepository->findAllLigature();
     }
 
     /**
@@ -19,7 +21,9 @@ class LetterHelper
      */
     public function getLettersFromString(string $letters): array
     {
-        return array_unique(str_split(strtolower($letters)));
+        return str_contains($letters, $this->separator) ?
+            array_unique(explode($this->separator, strtolower($letters))) :
+            array_unique(str_split(strtolower($letters)));
     }
 
     /**
