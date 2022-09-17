@@ -1,0 +1,28 @@
+###
+GET {{host}}
+
+###
+GET {{host}}/letters
+
+###
+GET {{host}}/words
+
+###
+GET {{host}}/words/abcdefghi
+
+###
+GET {{host}}/words/abd
+
+###
+GET {{host}}/words/a-b-d
+
+###
+GET {{host}}/words/abcdefghi/5
+
+###
+GET {{host}}/words/ae-b-r
+
+###
+GET {{host}}/words/ae-b-r/5
+
+
