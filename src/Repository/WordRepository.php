@@ -8,6 +8,7 @@ use App\Helper\LetterHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -78,7 +79,24 @@ class WordRepository extends ServiceEntityRepository
 
         // $query->setMaxResults(10);
         $query->orderBy('w.title');
+        $rawSql = $this->getDqlWithParams($query);
+
         return $query->getQuery()->getResult();
+    }
+
+    private function getDqlWithParams(QueryBuilder $query)
+    {
+        $vals = $query->getParameters();
+        $sql = $query->getDql();
+        $sql = str_replace('?', '%s', $sql);
+
+        $vals = (array) $vals->getValues();
+        $values = [];
+        foreach ($vals as $k => $v) {
+            $values[':' . $v->getName()] = $v->getValue();
+        }
+
+        return str_replace(array_keys($values), $values, $sql);
     }
 
     /**

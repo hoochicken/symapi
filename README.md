@@ -53,8 +53,8 @@ bin/console doctrine:fixtures:load
 php vendor/phpunit/phpunit/phpunit
 ~~~
 
-Go to `http://symapi.localhost/` in your browser, should display a json with word list.
-
+* Go to <http://symapi.localhost/> in your browser, should display a json with word list.
+* Go to <http://symapi.localhost/test> in your browser, should display a json with word list.bin
 
 # doctrine
 

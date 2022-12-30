@@ -22,6 +22,11 @@ class WordHelper
         return call_user_func_array('array_merge', $wordsInFile);
     }
 
+    public function getFileNames(): array
+    {
+        return $this->filenames;
+    }
+
     private function getWordsByFile($filename): string
     {
         return $this->replaceSpecialChars(file_get_contents(__DIR__ . '/../words/' . $filename));

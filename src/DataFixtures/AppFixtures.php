@@ -11,6 +11,9 @@ use Doctrine\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture implements FixtureGroupInterface
 {
+
+    const BATCH_SIZE_IMPORT = 200;
+
     public static function getGroups(): array
     {
         return ['general', 'word'];
@@ -37,22 +40,38 @@ class AppFixtures extends Fixture implements FixtureGroupInterface
             $Letter->setState(true);
             $manager->persist($Letter);
         }
-        $manager->flush();
+        $this->resetEntityManager($manager);
     }
 
     private function setWords(ObjectManager $manager)
     {
-        // vielleicht hier letterweise, achtung, wird bei jedem durchlauf wieder alles gelöscht
         $wordHelper = new WordHelper();
-        $words = $wordHelper->getAllWords('10-a');
+        $words = $wordHelper->getAllWords();
+
+        $batchI = 0;
         foreach ($words as $oneWord) {
+
+            if (0 === ($batchI % self::BATCH_SIZE_IMPORT)) {
+                $this->resetEntityManager($manager);
+                $batchI = 0;
+            }
+
             $oneWord = trim($oneWord);
             if (empty($oneWord)) continue;
             $word = new Word();
             $word->setTitle(str_replace('-', '', $oneWord), true);
             $word->setDivided($oneWord, true);
             $manager->persist($word);
+            unset($word);
+            $batchI++;
         }
+        $this->resetEntityManager($manager);
+    }
+
+    private function resetEntityManager(ObjectManager &$manager)
+    {
         $manager->flush();
+        $manager->clear();
+        $manager->getConnection()->getConfiguration()->setSQLLogger(null);
     }
 }
