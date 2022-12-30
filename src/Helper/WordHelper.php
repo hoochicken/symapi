@@ -5,7 +5,7 @@ namespace App\Helper;
 class WordHelper
 {
     private $specialChars = ['ß' => 'ss'];
-    private $filenames = [2, 3, 4, 5, 6, 7, 8, '8-a', '8-b', 9, 10];
+    private $filenames = [2, 3, 4, 5, 6, 7, 8, '8-a', '8-b', 9, 10, '10-a', '10-b'];
 
     public function getAllWords($wordLengthByletters = 0): array
     {

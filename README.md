@@ -27,10 +27,11 @@ bin/console doctrine:database:create
 
 ## 3. Create additional Database User for Symfony
 
-| #        | value    |
-|----------|----------|
-| user     | symfony  |
-| password | changeme |
+| #          | value      |
+|------------|------------|
+| user       | symfony    |
+| password   | changeme   |
+| privileges | all rights |
 
 ## 4. Create Tables via migrations
 
@@ -43,6 +44,13 @@ bin/console doctrine:migrations:migrate
 ~~~
 # load fixtures
 bin/console doctrine:fixtures:load
+~~~
+
+## 6. Run Tests
+
+~~~
+# phpunit in console
+php vendor/phpunit/phpunit/phpunit
 ~~~
 
 

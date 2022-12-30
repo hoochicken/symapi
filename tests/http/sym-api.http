@@ -2,6 +2,12 @@
 GET {{host}}
 
 ###
+GET symapi.localhost
+
+###
+GET 127.0.0.1:8084
+
+###
 GET {{host}}/letters
 
 ###
@@ -17,7 +23,7 @@ GET {{host}}/words/abd
 GET {{host}}/words/a-b-d
 
 ###
-GET {{host}}/words/abcdefghi/5
+GET {{host}}/words/abcde/5
 
 ###
 GET {{host}}/words/ae-b-r
