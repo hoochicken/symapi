@@ -61,9 +61,6 @@ services:
       - .env
     ports:
       - "5432:5432"
-    # command: 'chmod 777 -R /var/lib/postgresql/data'
-    # command: 'sudo chmod 700 -R /var/lib/postgresql/data'
-    # command: 'chmod 700 -R /var/lib/postgresql/data'
     networks:
       - net5
 
