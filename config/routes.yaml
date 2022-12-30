@@ -14,12 +14,8 @@ passwords:
   # controller: App\Controller\DevtoolController::passwordAction
 
 test:
-  path: /public/test
-  controller: App\Controller\DevtoolController::indexAction
-
-second:
   path: /test
-  controller: App\Controller\DevtoolController::indexAction
+  controller: App\Controller\DevController::indexAction
 
 words:
   path: /words

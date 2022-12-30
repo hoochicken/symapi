@@ -46,12 +46,14 @@ bin/console doctrine:migrations:migrate
 bin/console doctrine:fixtures:load
 ~~~
 
-## 6. Run Tests
+## 6. Checkup
 
 ~~~
 # phpunit in console
 php vendor/phpunit/phpunit/phpunit
 ~~~
+
+Go to `http://symapi.localhost/` in your browser, should display a json with word list.
 
 
 # doctrine
