@@ -5,7 +5,7 @@ namespace App\Helper;
 class WordHelper
 {
     private $specialChars = ['ß' => 'ss'];
-    private $filenames = [2, 3, 4, 5, 6, 7, 8, '8-a', '8-b', 9, 10];
+    private $filenames = [2, 3, 4, 5, 6, 7, 8, '8-a', '8-b', 9, 10, '10-a', '10-b'];
 
     public function getAllWords($wordLengthByletters = 0): array
     {
@@ -20,6 +20,11 @@ class WordHelper
         }
         array_walk($wordsInFile, function (&$item) {$item = explode("\n", str_replace("\r", '', $item));});
         return call_user_func_array('array_merge', $wordsInFile);
+    }
+
+    public function getFileNames(): array
+    {
+        return $this->filenames;
     }
 
     private function getWordsByFile($filename): string

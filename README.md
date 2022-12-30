@@ -27,10 +27,11 @@ bin/console doctrine:database:create
 
 ## 3. Create additional Database User for Symfony
 
-| #        | value    |
-|----------|----------|
-| user     | symfony  |
-| password | changeme |
+| #          | value      |
+|------------|------------|
+| user       | symfony    |
+| password   | changeme   |
+| privileges | all rights |
 
 ## 4. Create Tables via migrations
 
@@ -45,6 +46,15 @@ bin/console doctrine:migrations:migrate
 bin/console doctrine:fixtures:load
 ~~~
 
+## 6. Checkup
+
+~~~
+# phpunit in console
+php vendor/phpunit/phpunit/phpunit
+~~~
+
+* Go to <http://symapi.localhost/> in your browser, should display a json with word list.
+* Go to <http://symapi.localhost/test> in your browser, should display a json with word list.bin
 
 # doctrine
 

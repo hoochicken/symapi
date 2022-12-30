@@ -56,7 +56,7 @@ services:
     volumes:
       # - _dbdata_pg:/var/lib/postgresql/data
       # - ./_dbdata_pg:/data/postgres
-      - ./_dbdata5:/data/postgres
+      - ./_dbdata5:/data/postgres 777
     env_file:
       - .env
     ports:

@@ -30,7 +30,24 @@ class LetterRepository extends ServiceEntityRepository
     public function findAllTitle(): array
     {
         $letters = $this->findAll();
-        array_walk($letters, function(&$item) {$item = $item->getTitle();});
+        array_walk($letters, function(&$item) {
+            /** @var Letter $item */
+            $item = $item->getTitle();}
+        );
+        return $letters;
+    }
+
+    /**
+     * @throws ORMException
+     * @throws OptimisticLockException
+     */
+    public function findAllLigature(): array
+    {
+        $letters = $this->findAll();
+        array_walk($letters, function(&$item) {
+            /** @var Letter $item */
+            $item = $item->getLigature();}
+        );
         return $letters;
     }
 

@@ -1,0 +1,7 @@
+GET http://localhost:8084/test
+
+###
+GET http://localhost:8084/words
+
+###
+GET http://localhost:8084/words/
