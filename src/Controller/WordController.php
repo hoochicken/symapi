@@ -20,9 +20,9 @@ class WordController extends ApiController
     public function wordAction(Request $request, WordRepository $wordRepository)
     {
         try {
-            $words = $this->getRandomElements($wordRepository->findAll());
+            $words = $this->getRandomElements($wordRepository->findRandom());
             array_walk($words, function (&$item) {
-                $item = $item->getTitle();
+                $item = is_array($item) ? $item['title'] : $item->getTitle();
             });
             return $this->respond(['words' => $words]);
         } catch (Exception $e) {
@@ -36,11 +36,11 @@ class WordController extends ApiController
         try {
             $words = $this->getRandomElements($wordRepository->findByLetters($letters, $length));
             array_walk($words, function (&$item) {
-                $item = $item->getTitle();
+                $item = is_array($item) ? $item['title'] : $item->getTitle();
             });
             return $this->respond(['words' => $words, 'result' => 'ok']);
         } catch (Exception $e) {
-            throw new HttpException($e->getCode(), $e->getMessage() . 'Something went wrong when getting the words');
+            throw new HttpException($e->getCode(), $e->getMessage() . ' ' . 'Something went wrong when getting the words');
         }
 
     }

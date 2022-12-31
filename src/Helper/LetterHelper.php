@@ -15,6 +15,18 @@ class LetterHelper
         $this->lettersAll = $letterRepository->findAllLigature();
     }
 
+    public function getLettersAll(): array
+    {
+        return $this->lettersAll;
+    }
+
+    public function getLettersAllShuffled(): array
+    {
+        $letters = $this->getLettersAll();
+        shuffle($letters);
+        return $letters;
+    }
+
     /**
      * @param string $letters
      * @return array

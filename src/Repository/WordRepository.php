@@ -10,17 +10,18 @@ use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
+use PHPUnit\Exception;
 
 /**
  * @method Word|null find($id, $lockMode = null, $lockVersion = null)
  * @method Word|null findOneBy(array $criteria, array $orderBy = null)
- * @method Word[]    findAll()
  * @method Word[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class WordRepository extends ServiceEntityRepository
 {
-    private $lettersHelper;
-    private $specialChars = ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'sch' => 'sch'];
+    private LetterHelper $lettersHelper;
+    private array $specialChars = ['ä' => 'ae', 'ö' => 'oe', 'ü' => 'ue', 'sch' => 'sch'];
+    const BATCH_SIZE_DATABASE = 10;
 
     public function __construct(ManagerRegistry $registry, LetterRepository $letterRepository)
     {
@@ -52,6 +53,55 @@ class WordRepository extends ServiceEntityRepository
         }
     }
 
+    public function selectMaxLength()
+    {
+        return 10;
+    }
+
+    public function findRandom(): array
+    {
+        $start = 1;
+        $maxLength = $this->selectMaxLength();
+        $return = [];
+
+        try {
+            for ($wordLength = $start; $wordLength <= $maxLength; $wordLength++) {
+                $query = $this->createQueryBuilder('w');
+                $query->where(sprintf('w.length = %s', $wordLength));
+                $query->orderBy($this->getRandomAlphabetOrder());
+                $iterator = $query->getQuery()->toIterable();
+                $return = [...$return, ...$this->getDataFromIteraterByBatchSize($iterator, self::BATCH_SIZE_DATABASE)];
+            }
+            return $return;
+        } catch (Exception $e) {
+            throw new \Doctrine\DBAL\Exception($e->getMessage());
+        }
+    }
+
+    private function getDataFromIteraterByBatchSize($iterator, int $batchSize): array
+    {
+        $counter = 1;
+        $return = [];
+        foreach ($iterator as $k => $entity) {
+            if ($batchSize < $counter) {
+                return $return;
+            }
+            $return[] = $entity;
+            $counter++;
+        }
+        return $return;
+    }
+
+    private function getRandomAlphabetOrder(string $alias = 'w'): string
+    {
+        $alphabet = $this->lettersHelper->getLettersAllShuffled();
+        $alphabet = array_slice($alphabet, 0, 5);
+        array_walk($alphabet, function (&$item) use ($alias) {
+            $item = $alias . '.' . $item;
+        });
+        return implode(',', $alphabet);
+    }
+
     /**
      * @param string $lettersOriginal
      * @param int $length
@@ -81,7 +131,9 @@ class WordRepository extends ServiceEntityRepository
         $query->orderBy('w.title');
         $rawSql = $this->getDqlWithParams($query);
 
-        return $query->getQuery()->getResult();
+        // return $query->getQuery()->getResult();
+        $result = $query->getQuery()->getArrayResult();
+        return $result;
     }
 
     private function getDqlWithParams(QueryBuilder $query)
@@ -90,7 +142,7 @@ class WordRepository extends ServiceEntityRepository
         $sql = $query->getDql();
         $sql = str_replace('?', '%s', $sql);
 
-        $vals = (array) $vals->getValues();
+        $vals = (array)$vals->getValues();
         $values = [];
         foreach ($vals as $k => $v) {
             $values[':' . $v->getName()] = $v->getValue();
