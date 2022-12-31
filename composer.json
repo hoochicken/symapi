@@ -26,6 +26,9 @@
         "symfony/yaml": "5.3.*"
     },
     "require-dev": {
+        "codeception/module-phpbrowser": "^2.0",
+        "codeception/module-rest": "^2.0",
+        "codeception/module-symfony": "^2.1",
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "easycorp/easy-deploy-bundle": "^1.0",
         "phpunit/phpunit": "^9.5",
@@ -73,6 +76,12 @@
         ],
         "phpunittest": [
             "php vendor/phpunit/phpunit/phpunit"
+        ],
+        "test:api": [
+            "php vendor/bin/codecept run api"
+        ],
+        "test": [
+            "php vendor/bin/codecept run"
         ]
     },
     "conflict": {
