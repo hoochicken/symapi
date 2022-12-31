@@ -15,7 +15,5 @@ class WordCest
         $I->sendGet('/words/abcde');
         $I->seeResponseCodeIsSuccessful();
         $I->seeResponseIsJson();
-        $I->seeResponseContains('{"result":"ok"}');
-
     }
 }

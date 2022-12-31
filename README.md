@@ -96,6 +96,12 @@ npm run serve
 ~~~
 # phpunit in console
 php vendor/phpunit/phpunit/phpunit
+
+# api tests
+composer run test:api
+
+# concept create new test
+php vendor/bin/codecept generate:cest api CreateUser
 ~~~
 
 
