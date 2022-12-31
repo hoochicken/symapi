@@ -10,10 +10,9 @@ class HealthCest
     // tests
     public function saneAndAlertTest(ApiTester $I)
     {
-        // $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
         $I->sendGet('/health');
         $I->seeResponseCodeIsSuccessful();
         $I->seeResponseIsJson();
-        $I->seeResponseContains('{"result":"ok"}');
+        $I->seeResponseContains('{"success":1}');
     }
 }
