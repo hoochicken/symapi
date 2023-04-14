@@ -20,7 +20,12 @@ Create the following:
 Alternatively login into docker container and create db via cmd.
 
 ~~~
+# login via docker container id
 docker exec -it [dockerContainerId] bash
+
+# OR login via docker-compose service name
+docker-compose exec symapi bash
+
 # will create db according to settings in config/packages/doctrine.yaml
 bin/console doctrine:database:create
 ~~~
